@@ -25,6 +25,10 @@ dependencies = [
 Homepage = "https://github.com/oharu121/python-clack"
 Repository = "https://github.com/oharu121/python-clack"
 
+[project.scripts]
+# CLI entry point for the demo (optional, for testing)
+python-clack-demo = "python_clack._demo:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

@@ -1,8 +1,16 @@
-"""Demo script for python-clack."""
+"""Demo script for python-clack.
+
+This module provides example usage of all python-clack prompts.
+
+Run with:
+    uv run python-clack-demo
+    # or
+    uv run python main.py
+"""
 
 import time
 
-from src.python_clack import (
+from python_clack import (
     cancel,
     confirm,
     group,
@@ -19,7 +27,7 @@ from src.python_clack import (
 
 
 def main() -> None:
-    """Run the demo."""
+    """Run the interactive demo."""
     intro("Welcome to python-clack!")
 
     # Text input

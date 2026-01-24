@@ -25,6 +25,21 @@ uv add python-clack
 - **Log utilities** - Styled info/success/warn/error messages
 - **Messages** - Intro/outro banners
 
+## Try It Out
+
+After installing, run the interactive demo:
+
+```bash
+python-clack-demo
+```
+
+Or run the examples from source:
+
+```bash
+uv run python examples/basic.py
+uv run python examples/group.py
+```
+
 ## Quick Start
 
 ```python
