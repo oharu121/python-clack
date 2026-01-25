@@ -1,125 +1,48 @@
 """Demo script for python-clack.
 
-This module provides example usage of all python-clack prompts.
+This module provides an interactive demo launcher for python-clack.
 
 Run with:
     uv run python-clack-demo
-    # or
-    uv run python main.py
 """
 
-import time
+from python_clack import intro, is_cancel, outro, select
 
-from python_clack import (
-    cancel,
-    confirm,
-    group,
-    intro,
-    is_cancel,
-    log,
-    multiselect,
-    outro,
-    password,
-    select,
-    spinner,
-    text,
-)
+from ._demos import DEMOS
 
 
 def main() -> None:
-    """Run the interactive demo."""
-    intro("Welcome to python-clack!")
+    """Run the interactive demo launcher."""
+    intro("python-clack Demo Gallery")
 
-    # Text input
-    name = text(
-        "What is your name?",
-        placeholder="Anonymous",
-    )
-    if is_cancel(name):
-        cancel()
-        return
+    # Build options from demo registry
+    options = [
+        {"value": key, "label": f"{i}. {demo['label']}", "hint": demo["hint"]}
+        for i, (key, demo) in enumerate(DEMOS.items(), 1)
+    ]
+    options.append({"value": "exit", "label": "Exit", "hint": "quit demo"})
 
-    # Select
-    color = select(
-        "Pick your favorite color",
-        options=[
-            {"value": "red", "label": "Red", "hint": "warm"},
-            {"value": "green", "label": "Green", "hint": "nature"},
-            {"value": "blue", "label": "Blue", "hint": "cool"},
-        ],
-    )
-    if is_cancel(color):
-        cancel()
-        return
+    while True:
+        choice_result = select(
+            "Choose a demo to run",
+            options=options,  # type: ignore[arg-type]
+        )
 
-    # Multi-select
-    features = multiselect(
-        "Select features to enable",
-        options=[
-            {"value": "typescript", "label": "TypeScript"},
-            {"value": "eslint", "label": "ESLint"},
-            {"value": "prettier", "label": "Prettier"},
-            {"value": "tests", "label": "Unit Tests"},
-        ],
-        required=True,
-    )
-    if is_cancel(features):
-        cancel()
-        return
+        if is_cancel(choice_result):
+            break
+        choice = str(choice_result)
 
-    # Password
-    secret = password(
-        "Enter your API key",
-        validate=lambda v: "API key is required" if not v else None,
-    )
-    if is_cancel(secret):
-        cancel()
-        return
+        if choice == "exit":
+            break
 
-    # Confirm
-    proceed = confirm(
-        f"Create project for {name}?",
-        initial_value=True,
-    )
-    if is_cancel(proceed):
-        cancel()
-        return
+        # Run selected demo
+        demo_fn = DEMOS[choice]["run"]
+        demo_fn()
 
-    if not proceed:
-        cancel("User declined")
-        return
+        # Spacing before returning to menu
+        print()
 
-    # Spinner
-    s = spinner()
-    s.start("Setting up project...")
-    time.sleep(1.5)
-    s.stop("Project created!")
-
-    # Log messages
-    log.info(f"User: {name}")
-    log.success(f"Color: {color}")
-    log.step(f"Features: {', '.join(features)}")  # type: ignore
-
-    outro("All done! Thanks for trying python-clack.")
-
-
-def demo_group() -> None:
-    """Demo the group function."""
-    intro("Group demo")
-
-    results = group(
-        {
-            "name": lambda _: text("What is your name?"),
-            "age": lambda _: text("What is your age?"),
-            "confirm": lambda r: confirm(f"Is your name {r.get('name', '?')}?"),
-        },
-        on_cancel=lambda _: cancel(),
-    )
-
-    if not is_cancel(results.get("confirm")):
-        log.success(f"Collected: {results}")
-
-    outro("Group demo complete!")
+    outro("Thanks for exploring python-clack!")
 
 
 if __name__ == "__main__":

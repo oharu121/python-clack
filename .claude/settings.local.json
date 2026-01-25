@@ -7,7 +7,9 @@
       "Bash(set PYTHON_CLACK_UNICODE=0)",
       "Bash(gh api:*)",
       "Bash(gh label list:*)",
-      "Bash(gh label create:*)"
+      "Bash(gh label create:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run pyright:*)"
     ]
   }
 }

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TextIO, TypeVar
+from typing import TextIO, TypeVar, cast
 
 from ._core.prompt import Prompt
 from ._core.state import State, _CancelType
@@ -62,7 +62,7 @@ def text(
     """
 
     def render(p: Prompt[str]) -> str:
-        prompt = p  # type: TextPrompt
+        prompt = cast(TextPrompt, p)
         title = f"{symbol(prompt.state)}  {message}"
 
         # Placeholder display
@@ -141,7 +141,7 @@ def confirm(
     """
 
     def render(p: Prompt[bool]) -> str:
-        prompt = p  # type: ConfirmPrompt
+        prompt = cast(ConfirmPrompt, p)
         title = f"{symbol(prompt.state)}  {message}"
 
         match prompt.state:
@@ -201,7 +201,7 @@ def password(
     """
 
     def render(p: Prompt[str]) -> str:
-        prompt = p  # type: PasswordPrompt
+        prompt = cast(PasswordPrompt, p)
         title = f"{symbol(prompt.state)}  {message}"
 
         match prompt.state:
@@ -273,7 +273,7 @@ def select(
     """
 
     def render(p: Prompt[T]) -> str:
-        prompt = p  # type: SelectPrompt[T]
+        prompt = cast(SelectPrompt[T], p)
         title = f"{symbol(prompt.state)}  {message}"
 
         match prompt.state:
@@ -356,7 +356,7 @@ def multiselect(
     """
 
     def render(p: Prompt[list[T]]) -> str:
-        prompt = p  # type: MultiSelectPrompt[T]
+        prompt = cast(MultiSelectPrompt[T], p)
         title = f"{symbol(prompt.state)}  {message}"
 
         match prompt.state:
