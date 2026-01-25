@@ -27,17 +27,20 @@ uv add python-clack
 
 ## Try It Out
 
-After installing, run the interactive demo:
+Run the interactive demo:
+
+```bash
+# With uv (recommended)
+uv run python-clack-demo
+
+# Or run examples directly
+uv run python examples/basic.py
+```
+
+If installed globally via `pip install python-clack`:
 
 ```bash
 python-clack-demo
-```
-
-Or run the examples from source:
-
-```bash
-uv run python examples/basic.py
-uv run python examples/group.py
 ```
 
 ## Quick Start
