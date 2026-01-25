@@ -2,6 +2,8 @@
 
 Beautiful CLI prompts for Python, inspired by [clack](https://github.com/bombshell-dev/clack).
 
+https://github.com/user-attachments/assets/389ae92a-052a-44cb-bfe4-0fc803ef6b44
+
 ## Installation
 
 ```bash
